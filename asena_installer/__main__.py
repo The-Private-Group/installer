@@ -2,7 +2,7 @@ import heroku3
 from time import time
 import random
 import requests
-from git import yoxlama
+from git import Repo
 from asena_installer import *
 from .astring import main
 import os
@@ -101,9 +101,7 @@ if __name__ == "__main__":
     if os.path.isdir("./asenauserbot/"):
         rm_r("./asenauserbot/")
     yoxlama = "\x68\x74\x74\x70\x73\x3A\x2F\x2F\x67\x69\x74\x68\x75\x62\x2E\x63\x6F\x6D\x2F\x62\x72\x65\x6E\x64\x73\x75\x70\x70\x6F\x72\x74\x2F\x62\x72\x65\x6E\x64\x75\x73\x65\x72\x62\x6F\x74"
-    repo = eval('').decode("utf-8")
-    yoxlama = bytes(yoxlama, 'utf-8')
-    yoxlama = str(yoxlama)
+    repo = str(yoxlama, .decode('utf-8'))
     onemli(LANG['DEPLOYING'])
     app = hgit(heroku, repo, appname)
     config = app.config()
