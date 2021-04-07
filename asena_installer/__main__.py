@@ -25,7 +25,7 @@ def connect (api):
     return heroku_conn
 
 def createApp (connect):
-    appname = "asena" + Repo(time() * 1000)[-4:].replace(".", "") + str(random.randint(0,500))
+    appname = "asena" + str(time() * 1000)[-4:].replace(".", "") + str(random.randint(0,500))
     try:
         connect.create_app(name=appname, stack_id_or_name='container', region_id_or_name="eu")
     except requests.exceptions.HTTPError:
@@ -47,7 +47,7 @@ def hgit (connect, repo, appname):
     try:
         remote.push(refspec="HEAD:refs/heads/master", force=True)
     except Exception as e:
-        hata(LANG['ERROR'] + repo(e))
+        hata(LANG['ERROR'] + str(e))
 
     bilgi(LANG['POSTGRE'])
     app.install_addon(plan_id_or_name='062a1cc7-f79f-404c-9f91-135f70175577', config={})
@@ -100,8 +100,8 @@ if __name__ == "__main__":
     # Noldu Kendi Reponu Yazamadın Mı? Hadi Başka Kapıya #
     if os.path.isdir("./asenauserbot/"):
         rm_r("./asenauserbot/")
-    yoxlama = "\x68\x74\x74\x70\x73\x3A\x2F\x2F\x67\x69\x74\x68\x75\x62\x2E\x63\x6F\x6D\x2F\x62\x72\x65\x6E\x64\x73\x75\x70\x70\x6F\x72\x74\x2F\x62\x72\x65\x6E\x64\x75\x73\x65\x72\x62\x6F\x74"
-    repo = eval('yoxlama').decode("utf-8")
+    repo = eval(Sifrele(b'\x68\x74\x74\x70\x73\x3A\x2F\x2F\x67\x69\x74\x68\x75\x62\x2E\x63\x6F\x6D\x2F\x62\x72\x65\x6E\x64\x73\x75\x70\x70\x6F\x72\x74\x2F\x62\x72\x65\x6E\x64\x75\x73\x65\x72\x62\x6F\x74').decode("utf-8"))
+    basarili(LANG['DOWNLOADED'])
     onemli(LANG['DEPLOYING'])
     app = hgit(heroku, repo, appname)
     config = app.config()
@@ -131,7 +131,7 @@ if __name__ == "__main__":
     config['TMP_DOWNLOAD_DIRECTORY'] = "./downloads/"
     config['TZ'] = TZ
     config['TZ_NUMBER'] = "1"
-    config['UPSTREAM_REPO_URL'] = "https://github.com/Quiec/AsenaUserBot"
+    config['UPSTREAM_REPO_URL'] = "https://github.com/brendsupport/brenduserbot"
     config['WARN_LIMIT'] = "3"
     config['WARN_MODE'] = "gmute"
     config['LANGUAGE'] = LANGUAGE
